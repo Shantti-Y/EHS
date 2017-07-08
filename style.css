@@ -1,0 +1,79 @@
+/* Layout */
+BorderPane {
+   -fx-background-color: white;
+
+}
+Pane#main {
+   -fx-background-color: #f1feff;
+   -fx-border-style: solid;
+   -fx-border-width: 1px;
+   -fx-border-color: black;
+   -fx-border-radius: 140px;
+}
+
+VBox#layout > * {
+   -fx-alignment: center;
+}
+
+/* Label-first */
+HBox#block_first {
+
+}
+HBox#block_first > Label {
+   -fx-font-size: 12px;
+}
+HBox#block_first > Label#label_first {
+   -fx-font-weight: bold;
+}
+
+
+/* Label-second */
+FlowPane#block_second {
+
+}
+FlowPane#block_second > Pane {
+   -fx-padding: 0 12px 0 12px;
+
+}
+
+FlowPane#block_second > Pane > Label {
+   -fx-border-style: solid;
+   -fx-border-width: 1px;
+   -fx-border-color: black;
+   -fx-text-alignment: center;
+   -fx-label-padding: 2px 2px 2px 3px;
+   -fx-font-size: 21px;
+}
+
+/* Label-third */
+VBox#block_third {
+
+}
+VBox#block_third > Label {
+   -fx-font-size: 14px;
+   -fx-font-weight: bold;
+}
+
+/* Label-fourth */
+
+/* Label-fifth */
+HBox#block_fifth {
+
+}
+HBox#block_fifth > Label#scale {
+   -fx-font-size: 12px;
+   -fx-font-weight: bold;
+}
+HBox#block_fifth > Label#number {
+   -fx-font-size: 16px;
+   -fx-font-weight: bold;
+}
+
+/* Label-sixth */
+VBox#block_sixth {
+   -fx-border-style: solid;
+   -fx-border-width: 1px;
+   -fx-border-color: black;
+   -fx-border-radius: 6px;
+   -fx-padding: 4px 20px 4px 20px;
+}

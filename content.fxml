@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language javascript?>
+
+<?import javafx.lang.*?>
+<?import java.net.URL ?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+   xmlns="http://javafx.com/javafx/8"
+   xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@style.css" />
+   </stylesheets>
+
+
+   <center>
+      <Pane fx:id="main">
+         <children>
+            <VBox fx:id="layout">
+               <HBox fx:id="block_first">
+                  <Label fx:id="label_first" text="KWH METER " />
+                  <Label fx:id="label_second" text="TYPE 1-70-5/ 2" />
+               </HBox>
+
+               <FlowPane fx:id="block_second">
+                  <Pane><Label text="0" /></Pane>
+                  <Pane><Label text="0" /></Pane>
+                  <Pane><Label text="3" /></Pane>
+                  <Pane><Label text="7" /></Pane>
+                  <Pane><Label text="4" /></Pane>
+               </FlowPane>
+
+               <VBox fx:id="block_third">
+                  <Label text="KILOWATTHOURS" />
+                  <Label text="Rr13%" />
+               </VBox>
+
+               <HBox fx:id="block_fifth">
+                  <Label fx:id="scale" text="CL" />
+                  <Label fx:id="number" text="200  240" />
+                  <Label fx:id="scale" text="V  " />
+                  <Label fx:id="number" text="3" />
+                  <Label fx:id="scale" text="W  FM" />
+                  <Label fx:id="number" text="2" />
+                  <Label fx:id="scale" text="S  TA" />
+                  <Label fx:id="number" text="30" />
+               </HBox>
+
+               <VBox fx:id="block_sixth">
+                  <Label text="WATTHOUR METER 60 Hz" />
+                  <Label text="CAT.NO 720X 70 G17" />
+                  <Label text="MODEL EMR-170S" />
+                  <Label text="Waco Texas Ph.254-154-3922" />
+                  <Label text="||||||||||||||||||||||||||" />
+                  <Label text="S/N 65339280" />
+               </VBox>
+            </VBox>
+
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
