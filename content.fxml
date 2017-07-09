@@ -18,48 +18,55 @@
 
    <center>
       <Pane fx:id="main">
-         <children>
-            <VBox fx:id="layout">
-               <HBox fx:id="block_first">
-                  <Label fx:id="label_first" text="KWH METER " />
-                  <Label fx:id="label_second" text="TYPE 1-70-5/ 2" />
-               </HBox>
+         <VBox fx:id="layout">
+            <HBox fx:id="block_first">
+               <Label fx:id="label_first" text="KWH METER " />
+               <Label fx:id="label_second" text="TYPE 1-70-S/ 2" />
+            </HBox>
 
-               <FlowPane fx:id="block_second">
-                  <Pane><Label text="0" /></Pane>
-                  <Pane><Label text="0" /></Pane>
-                  <Pane><Label text="3" /></Pane>
-                  <Pane><Label text="7" /></Pane>
-                  <Pane><Label text="4" /></Pane>
-               </FlowPane>
+            <FlowPane fx:id="block_second">
+               <Label text="0" />
+               <Label text="0" />
+               <Label text="3" />
+               <Label text="7" />
+               <Label text="4" />
+            </FlowPane>
 
-               <VBox fx:id="block_third">
-                  <Label text="KILOWATTHOURS" />
-                  <Label text="Rr13%" />
-               </VBox>
-
-               <HBox fx:id="block_fifth">
-                  <Label fx:id="scale" text="CL" />
-                  <Label fx:id="number" text="200  240" />
-                  <Label fx:id="scale" text="V  " />
-                  <Label fx:id="number" text="3" />
-                  <Label fx:id="scale" text="W  FM" />
-                  <Label fx:id="number" text="2" />
-                  <Label fx:id="scale" text="S  TA" />
-                  <Label fx:id="number" text="30" />
-               </HBox>
-
-               <VBox fx:id="block_sixth">
-                  <Label text="WATTHOUR METER 60 Hz" />
-                  <Label text="CAT.NO 720X 70 G17" />
-                  <Label text="MODEL EMR-170S" />
-                  <Label text="Waco Texas Ph.254-154-3922" />
-                  <Label text="||||||||||||||||||||||||||" />
-                  <Label text="S/N 65339280" />
-               </VBox>
+            <VBox fx:id="block_third">
+               <Label fx:id="label_first" text="KILOWATTHOURS" />
+               <Label fx:id="label_second" text="Rr13%" />
             </VBox>
 
-         </children>
+            <VBox fx:id="block_fourth_top"></VBox>
+            <HBox fx:id="block_fourth_center">
+               <Pane fx:id="meter_edge_left"></Pane>
+               <Pane fx:id="meter_left"></Pane>
+               <Pane fx:id="meter_center"></Pane>
+               <Pane fx:id="meter_right"></Pane>
+               <Pane fx:id="meter_edge_right"></Pane>
+            </HBox>
+            <VBox fx:id="block_fourth_bottom"></VBox>
+
+            <HBox fx:id="block_fifth">
+               <Label fx:id="scale" text="CL" />
+               <Label fx:id="number" text="200  240" />
+               <Label fx:id="scale" text="V  " />
+               <Label fx:id="number" text="3" />
+               <Label fx:id="scale" text="W  FM" />
+               <Label fx:id="number" text="2" />
+               <Label fx:id="scale" text="S  TA" />
+               <Label fx:id="number" text="30" />
+            </HBox>
+
+            <VBox fx:id="block_sixth">
+               <Label fx:id="label_first" text="WATTHOUR METER 60 Hz" />
+               <Label fx:id="label_second" text="CAT.NO 720X 70 G17" />
+               <Label fx:id="label_third" text="MODEL EMR-170S" />
+               <Label fx:id="label_fourth" text="Waco Texas Ph.254-154-3922" />
+               <Label fx:id="label_fifth" text="||||||||||||||||||||||||||" />
+               <Label fx:id="label_sixth" text="S/N 65339280" />
+            </VBox>
+         </VBox>
       </Pane>
    </center>
 </BorderPane>

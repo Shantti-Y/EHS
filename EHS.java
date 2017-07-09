@@ -14,7 +14,7 @@ public class EHS extends Application {
    public void start(Stage stage) throws Exception {
       BorderPane root;
       root = (BorderPane)FXMLLoader.load(getClass().getResource("content.fxml"));
-      Scene scene = new Scene(root, 350, 320);
+      Scene scene = new Scene(root);
       stage.setScene(scene);
       stage.show();
    }
