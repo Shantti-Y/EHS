@@ -27,7 +27,7 @@ Are you sure there's nothing sooner?
 
 Download and activate it.
 
-# Causion
+# Caution
 
 Fight the power!
 
