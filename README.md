@@ -31,4 +31,4 @@ Download and activate it.
 
 Fight the power!
 
-![alt text]("https://github.com/Shantti-Y/EHS/master/chucks_downfall.gif")
+![alt text](https://github.com/Shantti-Y/EHS/master/chucks_downfall.gif)
