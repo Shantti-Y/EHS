@@ -1,0 +1,5 @@
+{
+   "name"      :  "Electromagnetic Hyper Sensitivity",
+   "version"   :  "0.1.0",
+   "main"      :  "./scripts/main.js"
+}
