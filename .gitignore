@@ -1,0 +1,3 @@
+# ignore sass-cache directory that helps scss file for compiling smoothly
+
+/.sass-cache
