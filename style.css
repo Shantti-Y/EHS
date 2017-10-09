@@ -81,9 +81,19 @@ body {
         height: 11px;
         background-color: #000000; }
       body #main #middle-side #spaces li#meter-bar {
-        width: calc(100% - (2 * (30px + 54px)));
+        z-index: -2;
+        width: 205px;
         height: 23px;
-        background-color: #000000; }
+        background-color: #000000;
+        position: relative; }
+        body #main #middle-side #spaces li#meter-bar div#pointer {
+          z-index: -1;
+          position: absolute;
+          top: 13px;
+          left: 0;
+          width: 10px;
+          height: 5px;
+          background-color: red; }
     body #main #lower-side ul {
       margin: 5px 0; }
       body #main #lower-side ul li {

@@ -8,7 +8,7 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 375, height: 380})
+  win = new BrowserWindow({width: 375, height: 390})
 
   // and load the index.html of the app.
   win.loadURL(url.format({
@@ -17,7 +17,14 @@ function createWindow () {
     slashes: true
   }))
 
-
+  let counter = 0
+  let timer = setInterval(() => {
+     if(counter > 9){
+        clearInterval(timer)
+     }
+     console.log('hello world')
+     counter += 1
+ }, 1000)
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
