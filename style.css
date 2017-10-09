@@ -10,6 +10,8 @@ body {
     border-radius: 200px; }
     body #main #upper-side {
       text-align: center; }
+      body #main #upper-side > * {
+        background-color: #ffffff; }
       body #main #upper-side #title {
         display: inline-block;
         margin-top: 43px;
@@ -20,21 +22,46 @@ body {
         font-size: 13px; }
         body #main #upper-side #title span {
           font-weight: normal; }
-      body #main #upper-side #first-bumps li:nth-child(1) {
-        margin-right: 88px; }
-      body #main #upper-side #first-bumps li:nth-child(2) {
-        margin-left: 88px; }
-      body #main #upper-side #meters li {
-        display: inline-block; }
-      body #main #upper-side #meters li.unit {
-        border: 1px solid #000000;
-        padding: 5px 2px;
-        font-family: "dense-reg";
-        font-size: 35px; }
-      body #main #upper-side #meters li.unit-gap {
-        width: 15px; }
+      body #main #upper-side #first-bumps {
+        margin-top: 0;
+        padding-top: 3px;
+        display: inline-block;
+        width: 200px; }
+        body #main #upper-side #first-bumps li:nth-child(1) {
+          margin-right: 88px; }
+        body #main #upper-side #first-bumps li:nth-child(2) {
+          margin-left: 88px; }
+      body #main #upper-side #meters {
+        z-index: -1;
+        background-color: rgba(0, 0, 0, 0);
+        display: block;
+        height: 47px; }
+        body #main #upper-side #meters li {
+          display: inline-block; }
+        body #main #upper-side #meters li.unit {
+          z-index: -2;
+          position: relative;
+          border: 1px solid #000000;
+          padding: 5px 2px;
+          height: 35px;
+          font-family: "dense-reg";
+          font-size: 35px;
+          width: 11px; }
+          body #main #upper-side #meters li.unit span {
+            position: absolute;
+            top: 5px;
+            display: block;
+            width: 11px;
+            height: 35px;
+            text-align: center; }
+        body #main #upper-side #meters li.unit-gap {
+          width: 15px;
+          height: 47px; }
       body #main #upper-side #second-bumps {
-        margin-top: 7px; }
+        margin-top: 0;
+        padding-top: 7px;
+        display: inline-block;
+        width: 340px; }
         body #main #upper-side #second-bumps li {
           display: inline-block; }
         body #main #upper-side #second-bumps li:nth-child(1) {
@@ -45,7 +72,10 @@ body {
         body #main #upper-side #second-bumps li:nth-child(3) {
           margin-left: 78px; }
       body #main #upper-side #rate {
-        margin-top: 6px;
+        display: inline-block;
+        width: 340px;
+        padding-top: 6px;
+        margin-top: 0;
         font-size: 14px;
         font-weight: bold; }
       body #main #upper-side ul.row {
@@ -59,6 +89,8 @@ body {
     body #main #middle-side {
       margin-top: 12px;
       height: 23px; }
+      body #main #middle-side > * {
+        background-color: #ffffff; }
       body #main #middle-side #spaces li {
         float: left;
         display: block; }

@@ -12,6 +12,9 @@ body {
       border-radius: 200px;
 
       #upper-side {
+         > * {
+            background-color: #ffffff;
+         }
          text-align: center;
          #title {
             display: inline-block;
@@ -25,25 +28,49 @@ body {
          }
 
          #first-bumps {
+            margin-top: 0;
+            padding-top: 3px;
+            display: inline-block;
+            width: 200px;
             li:nth-child(1) { margin-right: 88px; }
             li:nth-child(2) { margin-left: 88px; }
          }
 
          #meters {
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0);
+            display: block;
+            height: 47px;
             li { display: inline-block; }
             li.unit {
+               z-index: -2;
+               position: relative;
                border: 1px solid #000000;
                padding: 5px 2px;
+               height: 35px;
                font-family: "dense-reg";
                font-size: 35px;
+               width: 11px;
+               span {
+                  position: absolute;
+                  top: 5px;
+                  display: block;
+                  width: 11px;
+                  height: 35px;
+                  text-align: center;
+               }
             }
             li.unit-gap {
                width: 15px;
+               height: 47px;
             }
          }
 
          #second-bumps {
-            margin-top: 7px;
+            margin-top: 0;
+            padding-top: 7px;
+            display: inline-block;
+            width: 340px;
             li { display: inline-block; }
             li:nth-child(1) { margin-right: 78px; }
             li:nth-child(2) {
@@ -54,7 +81,10 @@ body {
          }
 
          #rate {
-            margin-top: 6px;
+            display: inline-block;
+            width: 340px;
+            padding-top: 6px;
+            margin-top: 0;
             font-size: 14px;
             font-weight: bold;
          }
@@ -74,6 +104,7 @@ body {
       #middle-side {
          margin-top: 12px;
          height: 23px;
+         > * { background-color: #ffffff; }
          #spaces {
             li {
                float: left;
