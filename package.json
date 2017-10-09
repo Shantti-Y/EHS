@@ -1,5 +1,9 @@
 {
-   "name"      :  "Electromagnetic Hyper Sensitivity",
-   "version"   :  "0.1.0",
-   "main"      :  "./scripts/main.js"
+  "name": "Electromagnetic-Hyper-Sensitivity",
+  "version": "0.1.0",
+  "main": "./scripts/main.js",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
 }
