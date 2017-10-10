@@ -12,7 +12,12 @@ window.addEventListener('load', () => {
          if(this.number == 10){
             this.number = 0
          }
-         this.element.innerHTML = this.number
+         if(this.number == 9){
+            this.element.innerHTML = this.number + '<br>' + 0
+         }else{
+            this.element.innerHTML = this.number + '<br>' + (this.number + 1)
+         }
+
       }
    }
 
@@ -25,19 +30,17 @@ window.addEventListener('load', () => {
 
    let units = new Array()
    let unit_elements = document.getElementsByClassName('unit')
-   const UNIT_BOTTOM = unit_elements[0].getBoundingClientRect().height - 6
-   const UNIT_TOP = -1 * (UNIT_BOTTOM - 6)
+   const UNIT_BOTTOM = 5
+   const UNIT_TOP = (-1 * unit_elements[0].getBoundingClientRect().height) + 18
 
    for(let i = 0; i < 5; i++){
       // element property in Unit class gets span tag inside li.unit
       let digit = i + 1
       let unit_element = unit_elements[unit_elements.length - digit].children[0]
       units[i] = new Unit(digit, unit_element, 0)
-      console.log(units[i].element.offsetTop)
    }
 
    let y = 0
-
    const returnToBeginning = (position, limit, beginning, unit) => {
       if(position == limit){
          position = beginning
@@ -47,19 +50,30 @@ window.addEventListener('load', () => {
       return position
    }
 
+   const UNIT_HEIGHT = unit_elements[0].getBoundingClientRect().height
+   const METER_WIDTH = meter_bar.getBoundingClientRect().width + 10
+
+   const isApproachedTo10 = (key) => {
+      let unit = units[key]
+      let calc = Math.floor(METER_WIDTH / UNIT_HEIGHT) * (10 ** unit.digit)
+      if(y % calc == 0){
+         unit_position = returnToBeginning(unit.element.offsetTop, UNIT_TOP, UNIT_BOTTOM, 'minus')
+         if(unit_position == UNIT_BOTTOM){
+            unit.number += 1
+            unit.insertNumber()
+         }
+         unit.element.style.top = unit_position + 'px'
+         key += 1
+         if(key == units.length){
+            return true
+         }
+         isApproachedTo10(key)
+      }
+   }
+
    let unit_position = 0
    const moveUnit = () => {
-      for(let key in units){
-         let unit = units[key]
-         if(y % (10 ** unit.digit) == 0){
-            unit_position = returnToBeginning(unit.element.offsetTop, UNIT_TOP, UNIT_BOTTOM, 'minus')
-            if(unit_position == UNIT_BOTTOM){
-               unit.number += 1
-               unit.insertNumber()
-            }
-            unit.element.style.top = unit_position + 'px'
-         }
-      }
+      isApproachedTo10(0)
    }
 
    const movePointer = () => {
@@ -69,7 +83,7 @@ window.addEventListener('load', () => {
       moveUnit()
    }
 
-   setInterval(() => {
-         movePointer()
-   }, 2)
+   let intervalController = setInterval(() => {
+      movePointer()
+   }, 0.25)
 })
