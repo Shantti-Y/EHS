@@ -1,15 +1,6 @@
-<<<<<<< HEAD
 # ignore sass-cache directory that helps scss file for compiling smoothly
 
 /.sass-cache
-
 /node_modules
 /src/styles/style.css.map
 /src/styles/style.css
-=======
-# ignore sass-cache directory that helps scss file for compiling smoothly
-
-/.sass-cache
-/style.css.map
-/node_modules
->>>>>>> bda5fb56ef8b40d6b18d86910344481a9b3d2c45

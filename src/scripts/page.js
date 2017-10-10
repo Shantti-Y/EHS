@@ -42,6 +42,7 @@ window.addEventListener('load', function () {
 
    var units = new Array();
    var unit_elements = document.getElementsByClassName('unit');
+
    var UNIT_BOTTOM = 5;
    var UNIT_TOP = -1 * unit_elements[0].getBoundingClientRect().height + 18;
 
@@ -53,6 +54,7 @@ window.addEventListener('load', function () {
    }
 
    var y = 0;
+
    var returnToBeginning = function returnToBeginning(position, limit, beginning, unit) {
       if (position == limit) {
          position = beginning;
@@ -69,7 +71,7 @@ window.addEventListener('load', function () {
       var unit = units[key];
       var calc = Math.floor(METER_WIDTH / UNIT_HEIGHT) * 10 ** unit.digit;
       if (y % calc == 0) {
-         unit_position = returnToBeginning(unit.element.offsetTop, UNIT_TOP, UNIT_BOTTOM, 'minus');
+         var unit_position = returnToBeginning(unit.element.offsetTop, UNIT_TOP, UNIT_BOTTOM, 'minus');
          if (unit_position == UNIT_BOTTOM) {
             unit.number += 1;
             unit.insertNumber();
@@ -83,7 +85,6 @@ window.addEventListener('load', function () {
       }
    };
 
-   var unit_position = 0;
    var moveUnit = function moveUnit() {
       isApproachedTo10(0);
    };
