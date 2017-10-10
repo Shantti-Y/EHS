@@ -12,12 +12,16 @@ window.addEventListener('load', () => {
          if(this.number == 10){
             this.number = 0
          }
+<<<<<<< HEAD
          if(this.number == 9){
             this.element.innerHTML = this.number + '<br>' + 0
          }else{
             this.element.innerHTML = this.number + '<br>' + (this.number + 1)
          }
 
+=======
+         this.element.innerHTML = this.number
+>>>>>>> bda5fb56ef8b40d6b18d86910344481a9b3d2c45
       }
    }
 
@@ -30,17 +34,30 @@ window.addEventListener('load', () => {
 
    let units = new Array()
    let unit_elements = document.getElementsByClassName('unit')
+<<<<<<< HEAD
    const UNIT_BOTTOM = 5
    const UNIT_TOP = (-1 * unit_elements[0].getBoundingClientRect().height) + 18
+=======
+   const UNIT_BOTTOM = unit_elements[0].getBoundingClientRect().height - 6
+   const UNIT_TOP = -1 * (UNIT_BOTTOM - 6)
+>>>>>>> bda5fb56ef8b40d6b18d86910344481a9b3d2c45
 
    for(let i = 0; i < 5; i++){
       // element property in Unit class gets span tag inside li.unit
       let digit = i + 1
       let unit_element = unit_elements[unit_elements.length - digit].children[0]
       units[i] = new Unit(digit, unit_element, 0)
+<<<<<<< HEAD
    }
 
    let y = 0
+=======
+      console.log(units[i].element.offsetTop)
+   }
+
+   let y = 0
+
+>>>>>>> bda5fb56ef8b40d6b18d86910344481a9b3d2c45
    const returnToBeginning = (position, limit, beginning, unit) => {
       if(position == limit){
          position = beginning
@@ -50,6 +67,7 @@ window.addEventListener('load', () => {
       return position
    }
 
+<<<<<<< HEAD
    const UNIT_HEIGHT = unit_elements[0].getBoundingClientRect().height
    const METER_WIDTH = meter_bar.getBoundingClientRect().width + 10
 
@@ -68,6 +86,20 @@ window.addEventListener('load', () => {
             return true
          }
          isApproachedTo10(key)
+=======
+   let unit_position = 0
+   const moveUnit = () => {
+      for(let key in units){
+         let unit = units[key]
+         if(y % (10 ** unit.digit) == 0){
+            unit_position = returnToBeginning(unit.element.offsetTop, UNIT_TOP, UNIT_BOTTOM, 'minus')
+            if(unit_position == UNIT_BOTTOM){
+               unit.number += 1
+               unit.insertNumber()
+            }
+            unit.element.style.top = unit_position + 'px'
+         }
+>>>>>>> bda5fb56ef8b40d6b18d86910344481a9b3d2c45
       }
    }
 
@@ -83,7 +115,13 @@ window.addEventListener('load', () => {
       moveUnit()
    }
 
+<<<<<<< HEAD
    let intervalController = setInterval(() => {
       movePointer()
    }, 0.25)
+=======
+   setInterval(() => {
+         movePointer()
+   }, 2)
+>>>>>>> bda5fb56ef8b40d6b18d86910344481a9b3d2c45
 })
