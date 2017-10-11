@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu, MenuItem} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -13,6 +13,9 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
+  Menu.setApplicationMenu(mainMenu)
 
   win.on('closed', () => {
     win = null
@@ -32,3 +35,29 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+const start = new MenuItem({
+   label: 'Start'
+})
+
+const control_speed = new MenuItem({
+   label: 'Control Speed'
+})
+
+const reset_count = new MenuItem({
+   label: 'Reset Count'
+})
+
+const quit = new MenuItem({
+   label: 'Quit'
+})
+
+const mainMenuTemplate = [
+   { label: 'Main',
+     submenu: [
+       start,
+       control_speed,
+       reset_count,
+       quit
+     ] }
+]
