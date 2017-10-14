@@ -8,10 +8,11 @@
   },
   "dependencies": {
     "babelify": "^7.3.0",
+    "electron": "^1.7.9",
     "resolve": "^1.4.0"
   },
   "scripts": {
     "start": "electron .",
-    "build": "watchify ./scripts/page/class.js ./scripts/page/methods.js ./scripts/page/page.js -o ./src/scripts/page.js -t [babelify --presets [es2015]]"
+    "build": "watchify ./scripts/page/page.js -o ./src/scripts/page.js -t [babelify --presets [es2015]]"
   }
 }
