@@ -1,9 +1,6 @@
 const methods = require('./methods.js')
-
-const classes = require('./class.js')
-const Pointer = classes.Pointer
-const Unit = classes.Unit
-const MeterBar = classes.MeterBar
+const {Pointer, Unit, MeterBar} = require('./class.js')
+const { ipcRenderer } = window.require('electron')
 
 window.addEventListener('load', () => {
 
@@ -47,10 +44,44 @@ window.addEventListener('load', () => {
 
    // main function
    let pointer_distance = 0
-
-   let intervalController = setInterval(() => {
+   const moveItems = () => {
       pointer_distance += 1
       pointer.moveToRight(meter_bar.dimension().left, meter_bar.dimension().right)
       isApproachedTo10(0)
-   }, 0.001)
+   }
+
+   let interval = 0.001
+   let controlInterval = setInterval(moveItems, interval)
+   let activated = true
+   // events from main process
+   ipcRenderer.on('item:activate', (e, item) => {
+      if(item == true){
+         controlInterval = setInterval(moveItems, interval)
+         activated = true
+      }else{
+         clearInterval(controlInterval)
+         activated = false
+      }
+   })
+
+   ipcRenderer.on('item:speed', (e, speed) => {
+      interval = speed
+
+      clearInterval(controlInterval)
+      if(activated == true){
+         controlInterval = setInterval(moveItems, interval)
+      }
+   })
+
+   ipcRenderer.on('item:reset', (e)  => {
+      for(let key in units){
+         let unit = units[key]
+         unit.number = 0
+         unit.insertNumber()
+         unit.element.style.top = '5px'
+      }
+      pointer_distance = 0
+      pointer.position = -10
+      pointer.element.style.left = '-10px'
+   })
 })

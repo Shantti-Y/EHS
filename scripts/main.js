@@ -4,7 +4,7 @@ const url = require('url')
 
 let win
 
-function createWindow () {
+const createWindow = () => {
 
   win = new BrowserWindow({width: 375, height: 390})
 
@@ -14,8 +14,7 @@ function createWindow () {
     slashes: true
   }))
 
-  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
-  Menu.setApplicationMenu(mainMenu)
+  setMenuTemplate()
 
   win.on('closed', () => {
     win = null
@@ -24,40 +23,62 @@ function createWindow () {
 
 app.on('ready', createWindow)
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
 app.on('activate', () => {
   if (win === null) {
     createWindow()
   }
 })
 
-const start = new MenuItem({
-   label: 'Start'
+const activation = new MenuItem({
+   label: 'Stop',
+   click() {
+      let label = mainMenu.items[0].submenu.items[0].label
+      let send_msg = label == 'Start' ? true : false
+      activation.label = label == 'Start' ? 'Stop' : 'Start'
+      setMenuTemplate()
+      win.webContents.send('item:activate', send_msg)
+   }
 })
 
 const control_speed = new MenuItem({
-   label: 'Control Speed'
+   label: 'Control Speed',
+   click(){
+      win.webContents.send('item:speed', 10)
+   }
 })
 
 const reset_count = new MenuItem({
-   label: 'Reset Count'
+   label: 'Reset Count',
+   click(){
+      win.webContents.send('item:reset')
+   }
 })
 
 const quit = new MenuItem({
-   label: 'Quit'
+   label: 'Quit',
+   click(){
+      app.quit()
+   }
 })
 
 const mainMenuTemplate = [
    { label: 'Main',
      submenu: [
-       start,
+       activation,
        control_speed,
        reset_count,
-       quit
+       quit,
+       {
+          label: 'Toggle DevTools',
+          click(item, focusedWindow){
+             focusedWindow.toggleDevTools();
+          }
+      }
      ] }
 ]
+
+let mainMenu
+const setMenuTemplate = () => {
+   mainMenu = Menu.buildFromTemplate(mainMenuTemplate)
+   Menu.setApplicationMenu(mainMenu)
+}
