@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "watchify ./scripts/page/page.js -o ./src/scripts/page.js -t [babelify --presets [es2015]]"
+    "build": "watchify ./scripts/page/page.js -o ./src/scripts/page.js -t [babelify --presets [es2015]]",
+    "style": "scss --watch ./styles/style.scss:./src/styles/style.css"
   }
 }

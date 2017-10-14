@@ -182,5 +182,22 @@ body {
       body #main #lower-side #made-in p {
         font-size: 11px;
         font-weight: bold; }
+  body #speed-controller {
+    width: 240px;
+    padding: 24px 35px 15px 35px; }
+    body #speed-controller * {
+      margin-bottom: 6px; }
+    body #speed-controller #speed-form {
+      width: 100px;
+      padding: 5px 7px;
+      border: 1px solid #676767;
+      margin-right: 9px;
+      border-radius: 5px; }
+    body #speed-controller #impliment {
+      padding: 6px 15px;
+      border: 1px solid #dedede;
+      border-radius: 4px;
+      background-color: #00a045;
+      color: #ffffff; }
 
 /*# sourceMappingURL=style.css.map */

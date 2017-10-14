@@ -224,4 +224,26 @@ body {
          }
       }
    }
+
+   #speed-controller {
+      width: 240px;
+      padding: 24px 35px 15px 35px;
+      * { margin-bottom: 6px; }
+
+      #speed-form {
+         width: 100px;
+         padding: 5px 7px;
+         border: 1px solid #676767;
+         margin-right: 9px;
+         border-radius: 5px;
+      }
+
+      #impliment {
+         padding: 6px 15px;
+         border: 1px solid #dedede;
+         border-radius: 4px;
+         background-color: #00a045;
+         color: #ffffff;
+      }
+   }
 }
