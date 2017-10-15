@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "babelify": "^7.3.0",
+    "dotenv": "^4.0.0",
     "electron": "^1.7.9",
     "resolve": "^1.4.0"
   },

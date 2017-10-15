@@ -4,3 +4,4 @@
 /node_modules
 /src/styles/style.css.map
 /yarn-error.log
+/.env

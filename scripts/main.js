@@ -5,6 +5,9 @@ const url = require('url')
 let main_win
 let form_win
 
+// Set ENV
+process.env.NODE_ENV = 'development'
+
 const createMainWindow = () => {
 
   main_win = new BrowserWindow({ width: 360,
@@ -59,6 +62,7 @@ const createFormWindow = () => {
 
 const activation = new MenuItem({
    label: 'Stop',
+   accelerator: 'Ctrl+X',
    click() {
       let label = mainMenu.items[0].submenu.items[0].label
       let send_msg = label == 'Start' ? true : false
@@ -70,6 +74,7 @@ const activation = new MenuItem({
 
 const control_speed = new MenuItem({
    label: 'Control Speed',
+   accelerator: 'Ctrl+C',
    click(){
       createFormWindow()
    }
@@ -77,6 +82,7 @@ const control_speed = new MenuItem({
 
 const reset_count = new MenuItem({
    label: 'Reset Count',
+   accelerator: 'Ctrl+Z',
    click(){
       main_win.webContents.send('item:reset')
    }
@@ -84,6 +90,7 @@ const reset_count = new MenuItem({
 
 const quit = new MenuItem({
    label: 'Quit',
+   accelerator: 'Escape',
    click(){
       app.quit()
    }
@@ -95,15 +102,37 @@ const mainMenuTemplate = [
        activation,
        control_speed,
        reset_count,
-       quit,
-       {
-          label: 'Toggle DevTools',
-          click(item, focusedWindow){
-             focusedWindow.toggleDevTools();
-          }
-      }
+       quit
      ] }
 ]
+
+if(process.platform == 'darwin'){
+   mainMenuTemplate.unshift({})
+}
+
+if(process.env.NODE_ENV != 'production'){
+   const dev_tool =  {
+       label: 'Google Console',
+       accelerator: 'Ctrl+Alt+I',
+       click(item, focusedWindow){
+         focusedWindow.toggleDevTools();
+      }
+   }
+
+   const reload = {
+      accelerator: 'F5',
+      role: 'reload'
+   }
+
+   const dev_menus = {
+      label: 'DevTools',
+      submenu: [
+         dev_tool,
+         reload
+      ]
+   }
+   mainMenuTemplate.push(dev_menus)
+}
 
 let mainMenu
 const setMenuTemplate = () => {
