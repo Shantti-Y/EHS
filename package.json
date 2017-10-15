@@ -10,6 +10,8 @@
     "babelify": "^7.3.0",
     "dotenv": "^4.0.0",
     "electron": "^1.7.9",
+    "fs": "^0.0.1-security",
+    "jsonfile": "^4.0.0",
     "resolve": "^1.4.0"
   },
   "scripts": {

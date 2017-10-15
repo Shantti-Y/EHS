@@ -9,8 +9,7 @@ let form_win
 process.env.NODE_ENV = 'development'
 
 const createMainWindow = () => {
-
-  main_win = new BrowserWindow({ width: 360,
+  main_win = new BrowserWindow({ width: 370,
                                  height: 400,
                                  resizable: false })
 

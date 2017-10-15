@@ -12,8 +12,8 @@ const Unit = class Unit {
       return {
          width:   this.element.parentElement.getBoundingClientRect().width,
          height:  this.element.parentElement.getBoundingClientRect().height,
-         top:     (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 18,
-         bottom:  5
+         top:     (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 2,
+         bottom:  -1
       }
    }
 
@@ -66,9 +66,14 @@ module.exports = { Unit, Pointer, MeterBar }
 
 },{"./methods.js":3}],2:[function(require,module,exports){
 const { ipcRenderer } = window.require('electron')
+const jsonfile = window.require('jsonfile')
+
+const file = './src/status.json'
+let status = jsonfile.readFileSync(file)
 
 window.addEventListener('load', () => {
-   const input = document.getElementById('speed-form')
+   let input = document.getElementById('speed-form')
+   input.value = status.interval / 7
    const btn = document.getElementById('impliment')
 
    btn.addEventListener('click', (e) =>{
@@ -95,6 +100,11 @@ const methods = require('./methods.js')
 const {Pointer, Unit, MeterBar} = require('./class.js')
 const form = require('./form.js')
 const { ipcRenderer } = window.require('electron')
+const jsonfile = window.require('jsonfile')
+
+// Reading the initial status
+const file = './src/status.json'
+let status = jsonfile.readFileSync(file)
 
 window.addEventListener('load', () => {
 
@@ -110,7 +120,22 @@ window.addEventListener('load', () => {
       // element property in Unit class gets span tag inside li.unit
       let digit = i + 1
       let unit_element = unit_elements[unit_elements.length - digit].children[0]
-      units[i] = new Unit(unit_element, digit, 0)
+      if(i > 0){
+         let position = -1 * (units[i - 1].number * 3) - 1
+         unit_element.style.top = position + 'px'
+      }
+      units[i] = new Unit(unit_element, digit, status.counts[i])
+      units[i].insertNumber()
+   }
+
+   const updateIntervalStatus = (interval) => {
+      status.interval = interval
+      jsonfile.writeFileSync(file, status)
+   }
+
+   const updateCountStatus = (key) => {
+      status.counts[key] = units[key].number
+      jsonfile.writeFileSync(file, status)
    }
 
    const isApproachedTo10 = (key) => {
@@ -126,6 +151,7 @@ window.addEventListener('load', () => {
          if(unit_position == unit.dimension().bottom){
             unit.number += 1
             unit.insertNumber()
+            updateCountStatus(key)
          }
          unit.element.style.top = unit_position + 'px'
          key += 1
@@ -144,7 +170,7 @@ window.addEventListener('load', () => {
       isApproachedTo10(0)
    }
 
-   let interval = 7
+   let interval = status.interval
    let controlInterval = setInterval(moveItems, interval)
    let activated = true
    // events from main process
@@ -160,6 +186,7 @@ window.addEventListener('load', () => {
 
    ipcRenderer.on('item:speed', (e, speed) => {
       interval = speed
+      updateIntervalStatus(interval)
       clearInterval(controlInterval)
       if(activated == true){
          controlInterval = setInterval(moveItems, interval)
@@ -177,7 +204,6 @@ window.addEventListener('load', () => {
       pointer.position = -10
       pointer.element.style.left = '-10px'
    })
-   console.log(meter_bar.dimension().width)
 })
 
 },{"./class.js":1,"./form.js":2,"./methods.js":3}]},{},[4,2]);

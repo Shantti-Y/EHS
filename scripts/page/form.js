@@ -1,7 +1,12 @@
 const { ipcRenderer } = window.require('electron')
+const jsonfile = window.require('jsonfile')
+
+const file = './src/status.json'
+let status = jsonfile.readFileSync(file)
 
 window.addEventListener('load', () => {
-   const input = document.getElementById('speed-form')
+   let input = document.getElementById('speed-form')
+   input.value = status.interval / 7
    const btn = document.getElementById('impliment')
 
    btn.addEventListener('click', (e) =>{

@@ -11,8 +11,8 @@ const Unit = class Unit {
       return {
          width:   this.element.parentElement.getBoundingClientRect().width,
          height:  this.element.parentElement.getBoundingClientRect().height,
-         top:     (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 18,
-         bottom:  5
+         top:     (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 2,
+         bottom:  -1
       }
    }
 
