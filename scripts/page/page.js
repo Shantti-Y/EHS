@@ -1,11 +1,12 @@
 const methods = require('./methods.js')
 const {Pointer, Unit, MeterBar} = require('./class.js')
+const form = require('./form.js')
 const { ipcRenderer } = window.require('electron')
 
 window.addEventListener('load', () => {
 
    // Initial properties
-   let pointer = new Pointer(document.getElementById('pointer'), 0)
+   let pointer = new Pointer(document.getElementById('pointer'), -10)
    const meter_bar = new MeterBar(document.getElementById('meter-bar'))
 
    // Initializing units
@@ -50,7 +51,7 @@ window.addEventListener('load', () => {
       isApproachedTo10(0)
    }
 
-   let interval = 0.001
+   let interval = 7
    let controlInterval = setInterval(moveItems, interval)
    let activated = true
    // events from main process
@@ -66,7 +67,6 @@ window.addEventListener('load', () => {
 
    ipcRenderer.on('item:speed', (e, speed) => {
       interval = speed
-
       clearInterval(controlInterval)
       if(activated == true){
          controlInterval = setInterval(moveItems, interval)
@@ -84,4 +84,5 @@ window.addEventListener('load', () => {
       pointer.position = -10
       pointer.element.style.left = '-10px'
    })
+   console.log(meter_bar.dimension().width)
 })

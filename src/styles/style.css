@@ -2,7 +2,8 @@
   font-family: "dense-reg";
   src: url("Dense-Regular.otf"); }
 body {
-  width: 375px; }
+  width: 360px;
+  overflow: hidden; }
   body #main {
     height: 370px;
     margin: 0 auto;
@@ -115,7 +116,7 @@ body {
         background-color: #000000; }
       body #main #middle-side #spaces li#meter-bar {
         z-index: -2;
-        width: 205px;
+        width: 190px;
         height: 23px;
         background-color: #000000;
         position: relative; }
@@ -123,7 +124,7 @@ body {
           z-index: -1;
           position: absolute;
           top: 13px;
-          left: 0;
+          left: -10px;
           width: 10px;
           height: 5px;
           background-color: red; }

@@ -1,14 +1,17 @@
-const {app, BrowserWindow, Menu, MenuItem} = require('electron')
+const {app, BrowserWindow, Menu, MenuItem, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
 
-let win
+let main_win
+let form_win
 
-const createWindow = () => {
+const createMainWindow = () => {
 
-  win = new BrowserWindow({width: 375, height: 390})
+  main_win = new BrowserWindow({ width: 360,
+                                 height: 400,
+                                 resizable: false })
 
-  win.loadURL(url.format({
+  main_win.loadURL(url.format({
     pathname: path.join(__dirname, '../index.html'),
     protocol: 'file:',
     slashes: true
@@ -16,18 +19,43 @@ const createWindow = () => {
 
   setMenuTemplate()
 
-  win.on('closed', () => {
-    win = null
+  main_win.on('closed', () => {
+    main_win = null
+    app.quit()
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', createMainWindow)
 
 app.on('activate', () => {
-  if (win === null) {
-    createWindow()
+  if (main_win === null) {
+    createMainWindow()
   }
 })
+
+const createFormWindow = () => {
+   form_win = new BrowserWindow({ width: 240,
+                                  height: 140,
+                                  title: 'Speed Controller',
+                                  resizable: false })
+
+   form_win.loadURL(url.format({
+     pathname: path.join(__dirname, '../speed_controller.html'),
+     protocol: 'file:',
+     slashes: true
+   }))
+
+   form_win.setMenu(null)
+
+   form_win.on('closed', () => {
+      form_win = null
+   })
+
+   ipcMain.on('item:speed', (e, speed) => {
+      speed = speed * 7
+      main_win.webContents.send('item:speed', speed)
+   })
+}
 
 const activation = new MenuItem({
    label: 'Stop',
@@ -36,21 +64,21 @@ const activation = new MenuItem({
       let send_msg = label == 'Start' ? true : false
       activation.label = label == 'Start' ? 'Stop' : 'Start'
       setMenuTemplate()
-      win.webContents.send('item:activate', send_msg)
+      main_win.webContents.send('item:activate', send_msg)
    }
 })
 
 const control_speed = new MenuItem({
    label: 'Control Speed',
    click(){
-      win.webContents.send('item:speed', 10)
+      createFormWindow()
    }
 })
 
 const reset_count = new MenuItem({
    label: 'Reset Count',
    click(){
-      win.webContents.send('item:reset')
+      main_win.webContents.send('item:reset')
    }
 })
 
