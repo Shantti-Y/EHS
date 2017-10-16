@@ -8,14 +8,12 @@ const Unit = class Unit {
       this.number = number
    }
 
-   dimension(){
-      return {
-         width:   this.element.parentElement.getBoundingClientRect().width,
-         height:  this.element.parentElement.getBoundingClientRect().height,
-         top:     (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 2,
-         bottom:  -1
-      }
-   }
+   // Unit object's dimansional property
+   width(){ return this.element.parentElement.getBoundingClientRect().width }
+   height(){ return this.element.parentElement.getBoundingClientRect().height }
+   // Unit object's positional property
+   top(){ return (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 2 }
+   bottom(){ return -1 }
 
    insertNumber (){
       let next_number = this.number + 1
@@ -35,12 +33,9 @@ const Pointer = class Pointer {
       this.position = position
    }
 
-   dimension(){
-      return {
-         width:   this.element.getBoundingClientRect().height,
-         height:  this.element.getBoundingClientRect().width
-      }
-   }
+   // Pointer object's dimansional property
+   width(){ return this.element.getBoundingClientRect().width }
+   height(){ return this.element.getBoundingClientRect().height }
 
    moveToRight(start_point, end_point){
       this.position = methods.returnToBeginning(this.position, end_point, start_point, 'plus')
@@ -53,37 +48,37 @@ const MeterBar = class MeterBar {
       this.element = element
    }
 
-   dimension(){
-      return {
-         width:   this.element.getBoundingClientRect().width + 10,
-         left:    -10,
-         right:   this.element.getBoundingClientRect().width
-      }
-   }
+   // MeterBar object's dimansional property
+   width(){ return this.element.getBoundingClientRect().width + 10 }
+   left(){ return -10 }
+   right(){ return this.element.getBoundingClientRect().width }
 }
 
 module.exports = { Unit, Pointer, MeterBar }
 
 },{"./methods.js":3}],2:[function(require,module,exports){
+const methods = require('./methods.js')
 const { ipcRenderer } = window.require('electron')
+
+let status = methods.status
+
+window.addEventListener('load', () => {
+   let input = document.getElementById('speed-form')
+   input.value = Math.round(status.interval / 7)
+   const btn = document.getElementById('impliment')
+
+   btn.addEventListener('click', (e) =>{
+      e.preventDefault()
+      ipcRenderer.send('item:speed', input.value)
+   })
+})
+
+},{"./methods.js":3}],3:[function(require,module,exports){
 const jsonfile = window.require('jsonfile')
 
 const file = './src/status.json'
 let status = jsonfile.readFileSync(file)
 
-window.addEventListener('load', () => {
-   let input = document.getElementById('speed-form')
-   input.value = status.interval / 7
-   const btn = document.getElementById('impliment')
-
-   btn.addEventListener('click', (e) =>{
-      e.preventDefault()
-      const speed = input.value
-      ipcRenderer.send('item:speed', speed)
-   })
-})
-
-},{}],3:[function(require,module,exports){
 const returnToBeginning = (position, limit, beginning, unit) => {
    if(position == limit){
       position = beginning
@@ -93,22 +88,27 @@ const returnToBeginning = (position, limit, beginning, unit) => {
    return position
 }
 
-module.exports = { returnToBeginning }
+const updateIntervalStatus = (interval) => {
+   status.interval = interval
+   jsonfile.writeFileSync(file, status)
+}
+
+const updateCountStatus = (units, key) => {
+   status.counts[key] = units[key].number
+   jsonfile.writeFileSync(file, status)
+}
+
+module.exports = { status, returnToBeginning, updateIntervalStatus, updateCountStatus }
 
 },{}],4:[function(require,module,exports){
 const methods = require('./methods.js')
 const {Pointer, Unit, MeterBar} = require('./class.js')
-const form = require('./form.js')
 const { ipcRenderer } = window.require('electron')
-const jsonfile = window.require('jsonfile')
 
-// Reading the initial status
-const file = './src/status.json'
-let status = jsonfile.readFileSync(file)
+let status = methods.status
 
 window.addEventListener('load', () => {
-
-   // Initial properties
+   // Initial objects on gas meter
    let pointer = new Pointer(document.getElementById('pointer'), -10)
    const meter_bar = new MeterBar(document.getElementById('meter-bar'))
 
@@ -128,30 +128,19 @@ window.addEventListener('load', () => {
       units[i].insertNumber()
    }
 
-   const updateIntervalStatus = (interval) => {
-      status.interval = interval
-      jsonfile.writeFileSync(file, status)
-   }
-
-   const updateCountStatus = (key) => {
-      status.counts[key] = units[key].number
-      jsonfile.writeFileSync(file, status)
-   }
-
    const isApproachedTo10 = (key) => {
       let unit = units[key]
 
       // While the pointer tag goes to the edge of its movement range,
       // each unit goes up to the beyond its flame.
       // Their speed are calculated by the following formula.
-      let calc = Math.floor(meter_bar.dimension().width / unit.dimension().height) * (10 ** unit.digit)
-
+      let calc = Math.floor(meter_bar.width() / unit.height()) * (10 ** unit.digit)
       if(pointer_distance % calc == 0){
-         let unit_position = methods.returnToBeginning(unit.element.offsetTop, unit.dimension().top, unit.dimension().bottom, 'minus')
-         if(unit_position == unit.dimension().bottom){
+         let unit_position = methods.returnToBeginning(unit.element.offsetTop, unit.top(), unit.bottom(), 'minus')
+         if(unit_position == unit.bottom()){
             unit.number += 1
             unit.insertNumber()
-            updateCountStatus(key)
+            methods.updateCountStatus(units, key)
          }
          unit.element.style.top = unit_position + 'px'
          key += 1
@@ -166,7 +155,7 @@ window.addEventListener('load', () => {
    let pointer_distance = 0
    const moveItems = () => {
       pointer_distance += 1
-      pointer.moveToRight(meter_bar.dimension().left, meter_bar.dimension().right)
+      pointer.moveToRight(meter_bar.left(), meter_bar.right())
       isApproachedTo10(0)
    }
 
@@ -185,8 +174,8 @@ window.addEventListener('load', () => {
    })
 
    ipcRenderer.on('item:speed', (e, speed) => {
-      interval = speed
-      updateIntervalStatus(interval)
+      interval = Math.round(speed * 7)
+      methods.updateIntervalStatus(interval)
       clearInterval(controlInterval)
       if(activated == true){
          controlInterval = setInterval(moveItems, interval)
@@ -206,4 +195,4 @@ window.addEventListener('load', () => {
    })
 })
 
-},{"./class.js":1,"./form.js":2,"./methods.js":3}]},{},[4,2]);
+},{"./class.js":1,"./methods.js":3}]},{},[4,2]);

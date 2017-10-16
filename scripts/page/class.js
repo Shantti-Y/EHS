@@ -7,14 +7,12 @@ const Unit = class Unit {
       this.number = number
    }
 
-   dimension(){
-      return {
-         width:   this.element.parentElement.getBoundingClientRect().width,
-         height:  this.element.parentElement.getBoundingClientRect().height,
-         top:     (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 2,
-         bottom:  -1
-      }
-   }
+   // Unit object's dimansional property
+   width(){ return this.element.parentElement.getBoundingClientRect().width }
+   height(){ return this.element.parentElement.getBoundingClientRect().height }
+   // Unit object's positional property
+   top(){ return (-1 * (this.element.parentElement.getBoundingClientRect().height)) + 2 }
+   bottom(){ return -1 }
 
    insertNumber (){
       let next_number = this.number + 1
@@ -34,12 +32,9 @@ const Pointer = class Pointer {
       this.position = position
    }
 
-   dimension(){
-      return {
-         width:   this.element.getBoundingClientRect().height,
-         height:  this.element.getBoundingClientRect().width
-      }
-   }
+   // Pointer object's dimansional property
+   width(){ return this.element.getBoundingClientRect().width }
+   height(){ return this.element.getBoundingClientRect().height }
 
    moveToRight(start_point, end_point){
       this.position = methods.returnToBeginning(this.position, end_point, start_point, 'plus')
@@ -52,13 +47,10 @@ const MeterBar = class MeterBar {
       this.element = element
    }
 
-   dimension(){
-      return {
-         width:   this.element.getBoundingClientRect().width + 10,
-         left:    -10,
-         right:   this.element.getBoundingClientRect().width
-      }
-   }
+   // MeterBar object's dimansional property
+   width(){ return this.element.getBoundingClientRect().width + 10 }
+   left(){ return -10 }
+   right(){ return this.element.getBoundingClientRect().width }
 }
 
 module.exports = { Unit, Pointer, MeterBar }

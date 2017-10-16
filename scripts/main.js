@@ -6,7 +6,7 @@ let main_win
 let form_win
 
 // Set ENV
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'production'
 
 const createMainWindow = () => {
   main_win = new BrowserWindow({ width: 370,
@@ -54,7 +54,6 @@ const createFormWindow = () => {
    })
 
    ipcMain.on('item:speed', (e, speed) => {
-      speed = speed * 7
       main_win.webContents.send('item:speed', speed)
    })
 }

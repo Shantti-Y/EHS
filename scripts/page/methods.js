@@ -1,3 +1,8 @@
+const jsonfile = window.require('jsonfile')
+
+const file = './src/status.json'
+let status = jsonfile.readFileSync(file)
+
 const returnToBeginning = (position, limit, beginning, unit) => {
    if(position == limit){
       position = beginning
@@ -7,4 +12,14 @@ const returnToBeginning = (position, limit, beginning, unit) => {
    return position
 }
 
-module.exports = { returnToBeginning }
+const updateIntervalStatus = (interval) => {
+   status.interval = interval
+   jsonfile.writeFileSync(file, status)
+}
+
+const updateCountStatus = (units, key) => {
+   status.counts[key] = units[key].number
+   jsonfile.writeFileSync(file, status)
+}
+
+module.exports = { status, returnToBeginning, updateIntervalStatus, updateCountStatus }
