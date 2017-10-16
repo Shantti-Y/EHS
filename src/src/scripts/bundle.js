@@ -76,7 +76,7 @@ window.addEventListener('load', () => {
 },{"./methods.js":3}],3:[function(require,module,exports){
 const jsonfile = window.require('jsonfile')
 
-const file = './src/status.json'
+const file = './src/src/status.json'
 let status = jsonfile.readFileSync(file)
 
 const returnToBeginning = (position, limit, beginning, unit) => {

@@ -1,1 +1,0 @@
-console.error("Error: Cannot find module '/var/www/html/javascript/EHS/scripts/page/page.js' from '/var/www/html/javascript/EHS'");

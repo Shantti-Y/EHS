@@ -6,7 +6,7 @@ let main_win
 let form_win
 
 // Set ENV
-process.env.NODE_ENV = 'production'
+process.env.NODE_ENV = 'development'
 
 const createMainWindow = () => {
   main_win = new BrowserWindow({ width: 370,
@@ -14,7 +14,7 @@ const createMainWindow = () => {
                                  resizable: false })
 
   main_win.loadURL(url.format({
-    pathname: path.join(__dirname, '../index.html'),
+    pathname: path.join(__dirname, './src/index.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -42,7 +42,7 @@ const createFormWindow = () => {
                                   resizable: false })
 
    form_win.loadURL(url.format({
-     pathname: path.join(__dirname, '../speed_controller.html'),
+     pathname: path.join(__dirname, './src/speed_controller.html'),
      protocol: 'file:',
      slashes: true
    }))
